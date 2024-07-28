@@ -1,12 +1,12 @@
 import { Suspense } from "react";
 
 import {
-  Filters,
   FormWrapper,
   MyRCC,
-  MyRSC,
-  RestaurantsLoader,
+  SkeletonList,
 } from "@/features/restaurants";
+import { Filters } from "@/features/filters";
+import { MyRSC, RestaurantsLoader } from "@/features/restaurants/server";
 
 // NOTE: I could access searchParams from page but then we opt out of full route cache
 export default async function RestaurantsPage() {
@@ -31,7 +31,7 @@ export default async function RestaurantsPage() {
           </p>
         </div>
         <Filters />
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<SkeletonList count={8} />}>
           <RestaurantsLoader />
         </Suspense>
       </div>

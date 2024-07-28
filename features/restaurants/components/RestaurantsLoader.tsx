@@ -1,4 +1,4 @@
-import { getAll } from "@/features/restaurants";
+import { getAll } from "../api";
 import { List } from "@/features/restaurants";
 
 // NOTE: I could access searchParams from page but then we opt out of full route cache

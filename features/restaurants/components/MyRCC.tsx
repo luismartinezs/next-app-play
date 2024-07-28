@@ -8,13 +8,13 @@ export const MyRCC = () => {
   return (
     <div>
       <h1>Client Component</h1>
-      <p>{count}</p>
-      <button
-        onClick={() => setCount(count + 1)}
-        className="bg-purple-600 text-white px-4 py-1 hover:bg-purple-700 rounded-md"
-      >
-        Increment
-      </button>
+      <p>Good old stateful react component rendered client side</p>
+      <div className="flex gap-4 items-center">
+        <div className="text-lg bg-gray-700 size-8 rounded-md flex items-center justify-center">
+          <span>{count}</span>
+        </div>
+        <button onClick={() => setCount(count + 1)}>Increment</button>
+      </div>
     </div>
   );
 };

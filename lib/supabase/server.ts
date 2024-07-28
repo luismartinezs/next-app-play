@@ -1,6 +1,9 @@
-import { cookies } from 'next/headers'
 import "server-only";
+
+import { cookies } from 'next/headers'
+
 import { createServerClient } from '@supabase/ssr'
+
 import { Database } from './database.types';
 
 export function createClient() {

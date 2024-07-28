@@ -2,10 +2,6 @@
 
 import { z } from "zod";
 
-async function sleep(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 const schema = z.object({
   name: z.string().min(2),
 });
@@ -31,4 +27,8 @@ export async function submit(prevState: any, formData: FormData) {
   return {
     message: `Hello, ${name}!`,
   };
+}
+
+async function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }

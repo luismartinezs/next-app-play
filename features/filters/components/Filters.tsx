@@ -1,6 +1,7 @@
 "use client"
 import { useRouter, useSearchParams } from "next/navigation"
-import { cuisineOptions } from "../constants"
+
+import { cuisineOptions } from "@/features/restaurants";
 
 export const Filters = () => {
   const router = useRouter()
@@ -23,7 +24,7 @@ export const Filters = () => {
             </option>
           ))}
         </select>
-        <button type="submit" className="bg-purple-600 text-white px-4 py-1 hover:bg-purple-700 rounded-md">Submit</button>
+        <button type="submit">Submit</button>
       </div>
     </form>
   )

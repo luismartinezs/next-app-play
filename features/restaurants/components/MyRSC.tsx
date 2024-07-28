@@ -16,7 +16,6 @@ export function MyRSC() {
   async function submit(formData: FormData) {
     "use server";
 
-
     const name = formData.get("name") as string;
 
     const validatedFields = schema.safeParse({
@@ -26,7 +25,7 @@ export function MyRSC() {
     if (!validatedFields.success) {
       return {
         errors: validatedFields.error.flatten().fieldErrors,
-      }
+      };
     }
 
     await sleep(1000); // simulate network request
@@ -35,6 +34,7 @@ export function MyRSC() {
       message: `Hello, ${name}!`,
     };
   }
+
   return (
     <div>
       <h1>Server Component</h1>
