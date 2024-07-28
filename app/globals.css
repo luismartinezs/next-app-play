@@ -26,6 +26,34 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+@layer base {
+  h1 {
+    @apply text-xl;
+  }
+  h2 {
+    @apply text-lg;
+  }
+  p {
+    @apply my-2;
+  }
+  button {
+    @apply bg-purple-600 text-white px-4 py-1 hover:bg-purple-700 rounded-md;
+  }
+
+  input {
+    @apply bg-gray-800 shadow-inner p-1 rounded-md;
+  }
+}
+
+@layer components {
+  .card {
+    @apply p-4 rounded-md shadow border border-gray-500 bg-gray-800 flex flex-col gap-2;
+  }
+  .badge {
+    @apply px-2 py-1 bg-gray-700 rounded-full;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
