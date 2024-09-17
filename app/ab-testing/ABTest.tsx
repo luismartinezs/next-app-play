@@ -1,42 +1,36 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
-// Define types for our props
-type Variant = string;
-type VariantComponent = React.ComponentType;
-type VariantRatio = number;
-
-interface ABTestProps {
-  tests: Record<
-    Variant,
-    {
-      component: VariantComponent;
-      ratio: VariantRatio;
-    }
-  >;
+interface VariantProps {
+  w: number;
+  children: ReactNode;
 }
 
-export const ABTest = ({ tests }: ABTestProps) => {
-  const variantEntries = Object.entries(tests);
-  const totalRatio = variantEntries.reduce(
-    (sum, [_, ratio]) => sum + ratio.ratio,
-    0
+interface ABTestProps {
+  children: ReactNode;
+}
+
+const Variant: React.FC<VariantProps> = ({ children }) => {
+  return <>{children}</>;
+};
+
+export const ABTest: React.FC<ABTestProps> & { Variant: typeof Variant } = ({ children }) => {
+  const variants = React.Children.toArray(children).filter(
+    (child): child is React.ReactElement<VariantProps> =>
+      React.isValidElement(child) && child.type === Variant
   );
 
-  const randomValue = Math.random() * totalRatio;
-  let cumulativeRatio = 0;
-  let selectedVariant: Variant | null = null;
+  const totalWeight = variants.reduce((sum, variant) => sum + variant.props.w, 0);
+  const randomValue = Math.random() * totalWeight;
 
-  for (const [variant, ratio] of variantEntries) {
-    cumulativeRatio += ratio.ratio;
-    if (randomValue <= cumulativeRatio) {
-      selectedVariant = variant;
-      break;
-    }
-  }
+  let cumulativeWeight = 0;
+  const selectedVariant = variants.find((variant) => {
+    cumulativeWeight += variant.props.w;
+    return randomValue <= cumulativeWeight;
+  });
 
-  const SelectedComponent = selectedVariant
-    ? tests[selectedVariant].component
-    : null;
+  // register events for variant in DB to calculate optimal variant
 
-  return SelectedComponent ? <SelectedComponent /> : null;
+  return selectedVariant ? selectedVariant.props.children : null;
 };
+
+ABTest.Variant = Variant;

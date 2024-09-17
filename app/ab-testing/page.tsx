@@ -7,21 +7,16 @@ const HeaderC = () => <div>Complex Heading C</div>;
 
 export default function AbTesting() {
   return (
-    <ABTest
-      tests={{
-        A: {
-          component: HeaderA,
-          ratio: 0.4,
-        },
-        B: {
-          component: HeaderB,
-          ratio: 0.4,
-        },
-        C: {
-          component: HeaderC,
-          ratio: 0.2,
-        },
-      }}
-    />
+    <ABTest>
+      <ABTest.Variant w={40}>
+        <HeaderA />
+      </ABTest.Variant>
+      <ABTest.Variant w={40}>
+        <HeaderB />
+      </ABTest.Variant>
+      <ABTest.Variant w={20}>
+        <HeaderC />
+      </ABTest.Variant>
+    </ABTest>
   );
 }
