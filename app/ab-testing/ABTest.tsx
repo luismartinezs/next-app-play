@@ -1,36 +1,22 @@
-import React, { ReactNode } from "react";
+// "use client"
+// components/AbTest.tsx
+// import { useEffect } from "react";
+import { getVariant } from "./ab-testing";
+// import { trackEvent } from "./tracking";
 
-interface VariantProps {
-  w: number;
-  children: ReactNode;
-}
-
-interface ABTestProps {
-  children: ReactNode;
-}
-
-const Variant: React.FC<VariantProps> = ({ children }) => {
-  return <>{children}</>;
+type AbTestProps = {
+  testName: string;
+  variants: {
+    [key: string]: JSX.Element;
+  };
 };
 
-export const ABTest: React.FC<ABTestProps> & { Variant: typeof Variant } = ({ children }) => {
-  const variants = React.Children.toArray(children).filter(
-    (child): child is React.ReactElement<VariantProps> =>
-      React.isValidElement(child) && child.type === Variant
-  );
+export const AbTest: React.FC<AbTestProps> = ({ testName, variants }) => {
+  const variantKey = getVariant(testName, Object.keys(variants));
 
-  const totalWeight = variants.reduce((sum, variant) => sum + variant.props.w, 0);
-  const randomValue = Math.random() * totalWeight;
+  // useEffect(() => {
+  //   trackEvent(`${testName}-view`, variantKey);
+  // }, [testName, variantKey]);
 
-  let cumulativeWeight = 0;
-  const selectedVariant = variants.find((variant) => {
-    cumulativeWeight += variant.props.w;
-    return randomValue <= cumulativeWeight;
-  });
-
-  // register events for variant in DB to calculate optimal variant
-
-  return selectedVariant ? selectedVariant.props.children : null;
+  return <>{variants[variantKey]}</>;
 };
-
-ABTest.Variant = Variant;

@@ -1,4 +1,4 @@
-import { ABTest } from "./ABTest";
+import { AbTest } from "./ABTest";
 
 // Example usage
 const HeaderA = () => <div>Complex Heading A</div>;
@@ -7,16 +7,16 @@ const HeaderC = () => <div>Complex Heading C</div>;
 
 export default function AbTesting() {
   return (
-    <ABTest>
-      <ABTest.Variant w={40}>
-        <HeaderA />
-      </ABTest.Variant>
-      <ABTest.Variant w={40}>
-        <HeaderB />
-      </ABTest.Variant>
-      <ABTest.Variant w={20}>
-        <HeaderC />
-      </ABTest.Variant>
-    </ABTest>
-  );
+		<div>
+			<h1>Welcome to the Homepage</h1>
+			<AbTest
+				testName="header-test"
+				variants={{
+					variantA: <HeaderA />,
+					variantB: <HeaderB />,
+					variantC: <HeaderC />,
+				}}
+			/>
+		</div>
+	)
 }
